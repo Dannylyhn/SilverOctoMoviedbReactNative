@@ -53,6 +53,10 @@ const styles = StyleSheet.create({
       padding: 20,
       marginVertical: 8,
       marginHorizontal: 20,
+      borderBottomRightRadius: 15,
+      borderBottomLeftRadius: 15,
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
     },
     title: {
       fontSize: 32,

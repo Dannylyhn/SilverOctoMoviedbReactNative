@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image} from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Header } from '@react-navigation/stack';
@@ -35,22 +35,30 @@ export default function DetailsScreen({route}) {
       };
 
     return (
-        <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
+      <ScrollView>
+        <View style={{alignItems: "center", justifyContent: "center",}}>
         <Text style={styles.title}>{data.title}</Text>
         <Image style={styles.image}
         source={{
           uri:`https://image.tmdb.org/t/p/original${data.poster_path}`,
         }}
         />
-        <ScrollView>
+        
         <Text style={styles.releaseDate}>Release date:</Text>
         <Text style={styles.releaseDateText}>{data.release_date}</Text>
+        <Text style={styles.rating}>Rating:</Text>
+        <Text style={styles.ratingText}>{data.vote_average}</Text>
         <Text style={styles.underTitle}>Description</Text>
-        <Text>{data.overview}</Text>
-        </ScrollView>
+        <Text style={styles.descriptionText}>{data.overview}</Text>
         </View>
+        </ScrollView>
+
     )
 }
+
+var deviceWidth = Dimensions.get("window").width;
+
+var deviceHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
     item: {
@@ -71,9 +79,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
       },
     image: {
-      width: 300,
-      height: 500,
-      resizeMode: "center"
+      width: deviceWidth/1.3,
+      height: deviceHeight/1.6,
+      borderBottomRightRadius: 15,
+      borderBottomLeftRadius: 15,
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
     },
     releaseDate:{
       fontSize: 22,
@@ -84,5 +95,22 @@ const styles = StyleSheet.create({
       fontSize: 22,
       textAlign: 'center',
       marginBottom: 2,
+    },
+    descriptionText:{
+      fontSize: 20,
+      paddingLeft: 15,
+      paddingRight: 15,
+    },
+    rating:{
+      fontSize: 22,
+      textAlign: 'center',
+      fontWeight: 'bold'
+    },
+    ratingText:{
+      fontSize: 22,
+      textAlign: 'center',
+      marginBottom: 2,
     }
+
+
 });
