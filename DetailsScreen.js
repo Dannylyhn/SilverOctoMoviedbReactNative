@@ -5,14 +5,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Header } from '@react-navigation/stack';
 import { useEffect, useState } from "react";
 import { FlatList } from "react-native";
-import popularMoviedata from './popular.json';
 import { ScrollView } from 'react-native-gesture-handler';
+
 
 export default function DetailsScreen({route}) {
     const [data, setData] = useState({});
 
-    const { movieId } = route.params;
-
+    const { movieId, posterPath, description, rating, releaseDate } = route.params;
 
     useEffect(()=>{
       console.log(data);
@@ -24,10 +23,10 @@ export default function DetailsScreen({route}) {
 
       const getMovieDetails = async () => {
         try {
-          const response = await fetch(
+          let response = await fetch(
             `https://api.themoviedb.org/3/movie/${movieId}?api_key=0a62ad33bf1055feb628ea894759e93b&language=en-US`
           );
-          const json = await response.json();
+          let json = await response.json();
           setData(json);
         } catch (error) {
           console.error(error);
@@ -40,16 +39,16 @@ export default function DetailsScreen({route}) {
         <Text style={styles.title}>{data.title}</Text>
         <Image style={styles.image}
         source={{
-          uri:`https://image.tmdb.org/t/p/original${data.poster_path}`,
+          uri:`https://image.tmdb.org/t/p/original${posterPath}`,
         }}
         />
         
         <Text style={styles.releaseDate}>Release date:</Text>
-        <Text style={styles.releaseDateText}>{data.release_date}</Text>
+        <Text style={styles.releaseDateText}>{releaseDate}</Text>
         <Text style={styles.rating}>Rating:</Text>
-        <Text style={styles.ratingText}>{data.vote_average}</Text>
+        <Text style={styles.ratingText}>{rating}</Text>
         <Text style={styles.underTitle}>Description</Text>
-        <Text style={styles.descriptionText}>{data.overview}</Text>
+        <Text style={styles.descriptionText}>{description}</Text>
         </View>
         </ScrollView>
 

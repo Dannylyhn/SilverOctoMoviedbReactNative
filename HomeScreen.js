@@ -14,7 +14,9 @@ export default function HomeScreen({navigation}) {
     }, []);
 
     const renderItem = ({ item }) => (
-        <Item navigation={navigation} movieId={item.id} title={item.title} posterPath={item.poster_path} rating={item.vote_average} releaseDate={item.release_date} />
+        <Item navigation={navigation} movieId={item.id} title={item.title} 
+        posterPath={item.poster_path} rating={item.vote_average} 
+        releaseDate={item.release_date} description={item.overview}/>
       );
 
     return (
@@ -28,16 +30,16 @@ export default function HomeScreen({navigation}) {
     )
 }
 
-const Item = ({ navigation, title, movieId, posterPath, rating, releaseDate}) => (
+const Item = ({ navigation, title, movieId, posterPath, rating, releaseDate, description}) => (
     <View style={styles.item}>
-      <TouchableWithoutFeedback onPress={() => navigation.navigate("Details", {movieId, posterPath})}>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate("Details", {movieId, posterPath, description, rating, releaseDate})}>
       <Image style={styles.image}
         source={{
           uri:`https://image.tmdb.org/t/p/original${posterPath}`,
         }}
         />
       </TouchableWithoutFeedback>
-        <Text onPress={() => navigation.navigate("Details", {movieId, posterPath})} style={styles.title}>
+        <Text onPress={() => navigation.navigate("Details", {movieId, posterPath, description, rating, releaseDate})} style={styles.title}>
         {title}
       </Text>
       <Text style={styles.rating}>Rating: {rating}</Text>
